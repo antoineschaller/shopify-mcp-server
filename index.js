@@ -8,12 +8,15 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 
 // Shopify Admin API configuration
+const accessTokenArg = process.argv.find((arg) => arg.startsWith('--accessToken='));
+const domainArg = process.argv.find((arg) => arg.startsWith('--domain='));
+
 const SHOPIFY_ACCESS_TOKEN =
 	process.env.SHOPIFY_ACCESS_TOKEN ||
-	process.argv.find((arg) => arg.startsWith('--accessToken='))?.split('=')[1];
+	(accessTokenArg ? accessTokenArg.split('=')[1] : undefined);
 const SHOPIFY_DOMAIN =
 	process.env.SHOPIFY_DOMAIN ||
-	process.argv.find((arg) => arg.startsWith('--domain='))?.split('=')[1];
+	(domainArg ? domainArg.split('=')[1] : undefined);
 
 if (!SHOPIFY_ACCESS_TOKEN || !SHOPIFY_DOMAIN) {
 	console.error('Error: SHOPIFY_ACCESS_TOKEN and SHOPIFY_DOMAIN are required');
