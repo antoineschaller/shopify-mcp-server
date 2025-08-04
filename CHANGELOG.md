@@ -5,6 +5,13 @@ All notable changes to MCP Shopify will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2024-08-04
+
+### Fixed
+- Removed ALL optional chaining operators throughout the codebase
+- Fixed remaining Node.js v12 compatibility issues
+- Ensured compatibility with Claude Desktop's Node.js environment
+
 ## [1.0.2] - 2024-08-04
 
 ### Fixed

@@ -575,7 +575,7 @@ class ShopifyMCPServer {
 									`  Vendor: ${product.vendor}\n` +
 									`  Status: ${product.status}\n` +
 									`  Variants: ${product.variants.length}\n` +
-									`  Price: ${product.variants[0]?.price || 'N/A'} ${product.variants[0]?.currency_code || ''}`
+									`  Price: ${(product.variants[0] && product.variants[0].price) || 'N/A'} ${(product.variants[0] && product.variants[0].currency_code) || ''}`
 							)
 							.join('\n\n'),
 				},
@@ -606,7 +606,7 @@ class ShopifyMCPServer {
 									`  - ${v.title || 'Default'}: ${v.price} ${v.currency_code || ''} (SKU: ${v.sku || 'N/A'}, Stock: ${v.inventory_quantity})`
 							)
 							.join('\n') +
-						`\n\nDescription: ${product.body_html?.replace(/<[^>]*>/g, '').slice(0, 200)}...`,
+						`\n\nDescription: ${product.body_html ? product.body_html.replace(/<[^>]*>/g, '').slice(0, 200) : ''}...`,
 				},
 			],
 		};
@@ -622,7 +622,7 @@ class ShopifyMCPServer {
 			const searchData = await this.shopifyRequest(
 				`products/search.json?query=${encodeURIComponent(args.query)}&limit=${args.limit || 10}`
 			).catch(() => null);
-			if (searchData?.products) {
+			if (searchData && searchData.products) {
 				data.products = searchData.products;
 			}
 		}
@@ -638,7 +638,7 @@ class ShopifyMCPServer {
 								(product) =>
 									`• ${product.title} (ID: ${product.id})\n` +
 									`  Type: ${product.product_type || 'N/A'}\n` +
-									`  Price: ${product.variants[0]?.price || 'N/A'}`
+									`  Price: ${(product.variants[0] && product.variants[0].price) || 'N/A'}`
 							)
 							.join('\n\n'),
 				},
@@ -718,7 +718,7 @@ class ShopifyMCPServer {
 							.map(
 								(order) =>
 									`• Order #${order.order_number} (ID: ${order.id})\n` +
-									`  Customer: ${order.customer?.first_name || 'Guest'} ${order.customer?.last_name || ''}\n` +
+									`  Customer: ${(order.customer && order.customer.first_name) || 'Guest'} ${(order.customer && order.customer.last_name) || ''}\n` +
 									`  Total: ${order.total_price} ${order.currency}\n` +
 									`  Items: ${order.line_items.length}\n` +
 									`  Payment: ${order.financial_status}\n` +
@@ -743,7 +743,7 @@ class ShopifyMCPServer {
 						`Order #${order.order_number}\n` +
 						`ID: ${order.id}\n` +
 						`Status: ${order.financial_status} / ${order.fulfillment_status || 'unfulfilled'}\n` +
-						`Customer: ${order.customer?.first_name || 'Guest'} ${order.customer?.last_name || ''} (${order.email})\n` +
+						`Customer: ${(order.customer && order.customer.first_name) || 'Guest'} ${(order.customer && order.customer.last_name) || ''} (${order.email})\n` +
 						`Total: ${order.total_price} ${order.currency}\n` +
 						`Subtotal: ${order.subtotal_price}\n` +
 						`Tax: ${order.total_tax}\n` +
@@ -1144,7 +1144,7 @@ class ShopifyMCPServer {
 									`• ${product.title}\n` +
 									`  Type: ${product.product_type || 'N/A'}\n` +
 									`  Vendor: ${product.vendor}\n` +
-									`  Price: ${product.variants[0]?.price || 'N/A'}`
+									`  Price: ${(product.variants[0] && product.variants[0].price) || 'N/A'}`
 							)
 							.join('\n\n'),
 				},
