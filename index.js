@@ -28,7 +28,7 @@ class ShopifyMCPServer {
 	constructor() {
 		this.server = new Server(
 			{
-				name: 'shopify-mcp-server',
+				name: 'mcp-shopify',
 				version: '1.0.0',
 			},
 			{
@@ -1292,7 +1292,7 @@ class ShopifyMCPServer {
 	async run() {
 		const transport = new StdioServerTransport();
 		await this.server.connect(transport);
-		console.error('Shopify MCP server running on stdio');
+		console.error('MCP Shopify server running on stdio');
 	}
 }
 

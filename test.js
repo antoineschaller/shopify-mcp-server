@@ -1,5 +1,5 @@
 // Simple test to verify the package structure
-console.log('Testing @akson/shopify-mcp-server package...\n');
+console.log('Testing @akson/mcp-shopify package...\n');
 
 // Check package.json
 try {

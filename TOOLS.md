@@ -1,6 +1,6 @@
-# Shopify MCP Server - Complete Tools Reference
+# MCP Shopify - Complete Tools Reference
 
-This document provides detailed information about all 22 tools available in the Shopify MCP Server.
+This document provides detailed information about all 22 tools available in MCP Shopify.
 
 ## Product Management Tools
 

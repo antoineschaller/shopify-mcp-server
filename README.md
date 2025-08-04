@@ -1,4 +1,4 @@
-# Shopify MCP Server
+# MCP Shopify
 
 A comprehensive Model Context Protocol (MCP) server for Shopify Admin API integration. This server provides 22 tools to interact with your Shopify store, enabling AI assistants like Claude to manage products, orders, customers, inventory, analytics, and more through natural language.
 
@@ -18,13 +18,13 @@ A comprehensive Model Context Protocol (MCP) server for Shopify Admin API integr
 ### Global Installation (Recommended)
 
 ```bash
-npm install -g @akson/shopify-mcp-server
+npm install -g @akson/mcp-shopify
 ```
 
 ### Local Installation
 
 ```bash
-npm install @akson/shopify-mcp-server
+npm install @akson/mcp-shopify
 ```
 
 ## Usage
@@ -47,7 +47,7 @@ shopify-mcp-server --accessToken=your-access-token --domain=your-store.myshopify
 
 1. Install the package globally:
    ```bash
-   npm install -g @akson/shopify-mcp-server
+   npm install -g @akson/mcp-shopify
    ```
 
 2. Find your Claude Desktop configuration file:
@@ -61,7 +61,7 @@ shopify-mcp-server --accessToken=your-access-token --domain=your-store.myshopify
      "mcpServers": {
        "shopify": {
          "command": "npx",
-         "args": ["@akson/shopify-mcp-server"],
+         "args": ["@akson/mcp-shopify"],
          "env": {
            "SHOPIFY_ACCESS_TOKEN": "your-access-token",
            "SHOPIFY_DOMAIN": "your-store.myshopify.com"
@@ -182,7 +182,7 @@ Once configured in Claude Desktop, you can ask Claude to:
    - Ensure the token hasn't expired
 
 3. **"Server not found" in Claude Desktop**
-   - Verify the package is installed globally: `npm list -g @akson/shopify-mcp-server`
+   - Verify the package is installed globally: `npm list -g @akson/mcp-shopify`
    - Check the configuration file path is correct
    - Restart Claude Desktop after configuration changes
 

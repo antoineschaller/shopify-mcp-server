@@ -1,5 +1,5 @@
 {
-  "name": "@akson/shopify-mcp-server",
+  "name": "@akson/mcp-shopify",
   "version": "1.0.0",
   "description": "A comprehensive Model Context Protocol (MCP) server for Shopify Admin API integration",
   "type": "module",
