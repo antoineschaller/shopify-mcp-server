@@ -17,7 +17,7 @@ const SHOPIFY_DOMAIN =
 
 if (!SHOPIFY_ACCESS_TOKEN || !SHOPIFY_DOMAIN) {
 	console.error('Error: SHOPIFY_ACCESS_TOKEN and SHOPIFY_DOMAIN are required');
-	console.error('Usage: shopify-mcp-server --accessToken=YOUR_TOKEN --domain=YOUR_STORE.myshopify.com');
+	console.error('Usage: mcp-shopify --accessToken=YOUR_TOKEN --domain=YOUR_STORE.myshopify.com');
 	console.error('Or set environment variables: SHOPIFY_ACCESS_TOKEN and SHOPIFY_DOMAIN');
 	process.exit(1);
 }

@@ -34,13 +34,13 @@ npm install @akson/mcp-shopify
 ```bash
 export SHOPIFY_ACCESS_TOKEN=your-access-token
 export SHOPIFY_DOMAIN=your-store.myshopify.com
-shopify-mcp-server
+mcp-shopify
 ```
 
 ### With Command Line Arguments
 
 ```bash
-shopify-mcp-server --accessToken=your-access-token --domain=your-store.myshopify.com
+mcp-shopify --accessToken=your-access-token --domain=your-store.myshopify.com
 ```
 
 ### With Claude Desktop
@@ -143,7 +143,7 @@ export SHOPIFY_DOMAIN="your-store.myshopify.com"
 
 **Command Line Arguments:**
 ```bash
-shopify-mcp-server --accessToken="your-token" --domain="your-store.myshopify.com"
+mcp-shopify --accessToken="your-token" --domain="your-store.myshopify.com"
 ```
 
 ## Security
@@ -196,7 +196,7 @@ MIT
 
 ## Support
 
-For issues and feature requests, please visit: https://github.com/antoineschaller/shopify-mcp-server/issues
+For issues and feature requests, please visit: https://github.com/antoineschaller/mcp-shopify/issues
 
 ## Changelog
 
