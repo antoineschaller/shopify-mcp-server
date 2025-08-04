@@ -1,0 +1,40 @@
+{
+  "name": "@akson/shopify-mcp-server",
+  "version": "1.0.0",
+  "description": "A comprehensive Model Context Protocol (MCP) server for Shopify Admin API integration",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "shopify-mcp-server": "./bin/shopify-mcp-server.js"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "shopify",
+    "api",
+    "ecommerce",
+    "admin-api",
+    "claude",
+    "ai"
+  ],
+  "author": "Akson",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akson-ai/shopify-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/akson-ai/shopify-mcp-server/issues"
+  },
+  "homepage": "https://github.com/akson-ai/shopify-mcp-server#readme"
+}

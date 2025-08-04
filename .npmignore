@@ -1,0 +1,29 @@
+# Development files
+test.js
+.env
+.env.*
+*.log
+
+# Git files  
+.git/
+.gitignore
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build files
+node_modules/
+dist/
+build/
+
+# Documentation source
+docs/
+*.md
+!README.md
