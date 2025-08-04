@@ -1,6 +1,6 @@
-# @akson/shopify-mcp-server
+# Shopify MCP Server
 
-A comprehensive Model Context Protocol (MCP) server for Shopify Admin API integration. This server provides 22 tools to interact with your Shopify store, enabling AI assistants to manage products, orders, customers, and more.
+A comprehensive Model Context Protocol (MCP) server for Shopify Admin API integration. This server provides 22 tools to interact with your Shopify store, enabling AI assistants like Claude to manage products, orders, customers, inventory, analytics, and more through natural language.
 
 ## Features
 
@@ -15,8 +15,16 @@ A comprehensive Model Context Protocol (MCP) server for Shopify Admin API integr
 
 ## Installation
 
+### Global Installation (Recommended)
+
 ```bash
 npm install -g @akson/shopify-mcp-server
+```
+
+### Local Installation
+
+```bash
+npm install @akson/shopify-mcp-server
 ```
 
 ## Usage
@@ -42,7 +50,12 @@ shopify-mcp-server --accessToken=your-access-token --domain=your-store.myshopify
    npm install -g @akson/shopify-mcp-server
    ```
 
-2. Add to your Claude Desktop configuration:
+2. Find your Claude Desktop configuration file:
+   - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+   - Linux: `~/.config/Claude/claude_desktop_config.json`
+
+3. Add the Shopify MCP server to your configuration:
    ```json
    {
      "mcpServers": {
@@ -57,6 +70,8 @@ shopify-mcp-server --accessToken=your-access-token --domain=your-store.myshopify
      }
    }
    ```
+
+4. Restart Claude Desktop to load the new server
 
 ## Available Tools
 
@@ -105,11 +120,75 @@ To use this server, you need:
 2. A private app or custom app with appropriate API permissions
 3. An Admin API access token
 
+## Getting Started
+
+### 1. Create a Shopify App
+
+1. Go to your Shopify admin panel
+2. Navigate to Settings → Apps and sales channels → Develop apps
+3. Create a new app or use an existing one
+4. Configure Admin API scopes (read/write for products, orders, customers, etc.)
+5. Install the app to your store
+6. Copy the Admin API access token
+
+### 2. Configure the Server
+
+Set your credentials using one of these methods:
+
+**Environment Variables (Recommended):**
+```bash
+export SHOPIFY_ACCESS_TOKEN="your-access-token"
+export SHOPIFY_DOMAIN="your-store.myshopify.com"
+```
+
+**Command Line Arguments:**
+```bash
+shopify-mcp-server --accessToken="your-token" --domain="your-store.myshopify.com"
+```
+
 ## Security
 
-- Never commit your access tokens to version control
+- **Never commit access tokens** to version control
 - Use environment variables for sensitive data
-- Ensure your API tokens have only the necessary permissions
+- Store tokens securely (e.g., in password managers or secure vaults)
+- Ensure API tokens have only the necessary permissions
+- Regularly rotate access tokens
+- Monitor API usage through Shopify admin
+
+## Examples
+
+Once configured in Claude Desktop, you can ask Claude to:
+
+- "Show me my top 10 best-selling products"
+- "Update the price of product SKU123 to $29.99"
+- "List all pending orders from the last week"
+- "Create a new product collection for summer items"
+- "Check inventory levels for products running low"
+- "Generate a sales report for this month"
+- "Find all customers from New York"
+- "Apply a 20% discount code for the next week"
+
+## Troubleshooting
+
+### Common Issues
+
+1. **"SHOPIFY_ACCESS_TOKEN and SHOPIFY_DOMAIN are required"**
+   - Ensure environment variables are set correctly
+   - Check that your shell configuration loads the variables
+
+2. **"401 Unauthorized" errors**
+   - Verify your access token is correct
+   - Check that your app has the required API permissions
+   - Ensure the token hasn't expired
+
+3. **"Server not found" in Claude Desktop**
+   - Verify the package is installed globally: `npm list -g @akson/shopify-mcp-server`
+   - Check the configuration file path is correct
+   - Restart Claude Desktop after configuration changes
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
@@ -117,4 +196,12 @@ MIT
 
 ## Support
 
-For issues and feature requests, please visit: https://github.com/akson-ai/shopify-mcp-server/issues
+For issues and feature requests, please visit: https://github.com/antoineschaller/shopify-mcp-server/issues
+
+## Changelog
+
+### v1.0.0
+- Initial release with 22 comprehensive Shopify tools
+- Full ES module support
+- Command line and environment variable configuration
+- Claude Desktop integration
