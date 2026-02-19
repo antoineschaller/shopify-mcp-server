@@ -10,22 +10,91 @@ import {
 // Shopify Admin API configuration
 const accessTokenArg = process.argv.find((arg) => arg.startsWith('--accessToken='));
 const domainArg = process.argv.find((arg) => arg.startsWith('--domain='));
+const clientIdArg = process.argv.find((arg) => arg.startsWith('--clientId='));
+const clientSecretArg = process.argv.find((arg) => arg.startsWith('--clientSecret='));
+const apiVersionArg = process.argv.find((arg) => arg.startsWith('--apiVersion='));
 
-const SHOPIFY_ACCESS_TOKEN =
+let SHOPIFY_ACCESS_TOKEN =
 	process.env.SHOPIFY_ACCESS_TOKEN ||
 	(accessTokenArg ? accessTokenArg.split('=')[1] : undefined);
 const SHOPIFY_DOMAIN =
 	process.env.SHOPIFY_DOMAIN ||
 	(domainArg ? domainArg.split('=')[1] : undefined);
+const SHOPIFY_CLIENT_ID =
+	process.env.SHOPIFY_CLIENT_ID ||
+	(clientIdArg ? clientIdArg.split('=')[1] : undefined);
+const SHOPIFY_CLIENT_SECRET =
+	process.env.SHOPIFY_CLIENT_SECRET ||
+	(clientSecretArg ? clientSecretArg.split('=')[1] : undefined);
+const API_VERSION =
+	process.env.SHOPIFY_API_VERSION ||
+	(apiVersionArg ? apiVersionArg.split('=')[1] : undefined) ||
+	'2026-01';
 
-if (!SHOPIFY_ACCESS_TOKEN || !SHOPIFY_DOMAIN) {
-	console.error('Error: SHOPIFY_ACCESS_TOKEN and SHOPIFY_DOMAIN are required');
-	console.error('Usage: mcp-shopify --accessToken=YOUR_TOKEN --domain=YOUR_STORE.myshopify.com');
-	console.error('Or set environment variables: SHOPIFY_ACCESS_TOKEN and SHOPIFY_DOMAIN');
+const useClientCredentials = !!(SHOPIFY_CLIENT_ID && SHOPIFY_CLIENT_SECRET);
+
+if (!SHOPIFY_ACCESS_TOKEN && !useClientCredentials) {
+	console.error('Error: Authentication credentials are required.');
+	console.error('');
+	console.error('Option 1 — Static access token (legacy apps):');
+	console.error('  --accessToken=shpat_xxxxx');
+	console.error('');
+	console.error('Option 2 — Client credentials (Dev Dashboard apps, Jan 2026+):');
+	console.error('  --clientId=YOUR_CLIENT_ID --clientSecret=YOUR_CLIENT_SECRET');
+	console.error('');
+	console.error('Both require: --domain=YOUR_STORE.myshopify.com');
 	process.exit(1);
 }
 
-const SHOPIFY_API_URL = `https://${SHOPIFY_DOMAIN}/admin/api/2023-10/`;
+if (!SHOPIFY_DOMAIN) {
+	console.error('Error: SHOPIFY_DOMAIN is required');
+	console.error('  --domain=YOUR_STORE.myshopify.com');
+	process.exit(1);
+}
+
+// Client credentials token exchange (for Dev Dashboard apps, Jan 2026+)
+const REFRESH_MARGIN_MS = 5 * 60 * 1000; // Refresh 5 min before expiry
+let tokenExpiresAt = 0;
+
+async function fetchAccessToken() {
+	const res = await fetch(`https://${SHOPIFY_DOMAIN}/admin/oauth/access_token`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		body: new URLSearchParams({
+			grant_type: 'client_credentials',
+			client_id: SHOPIFY_CLIENT_ID,
+			client_secret: SHOPIFY_CLIENT_SECRET,
+		}),
+	});
+	if (!res.ok) {
+		const text = await res.text();
+		throw new Error(`Shopify token exchange failed (${res.status}): ${text}`);
+	}
+	const data = await res.json();
+	SHOPIFY_ACCESS_TOKEN = data.access_token;
+	tokenExpiresAt = Date.now() + data.expires_in * 1000;
+}
+
+function scheduleTokenRefresh() {
+	const delay = Math.max(tokenExpiresAt - Date.now() - REFRESH_MARGIN_MS, 0);
+	const timer = setTimeout(async () => {
+		try {
+			await fetchAccessToken();
+			scheduleTokenRefresh();
+		} catch (err) {
+			console.error('Failed to refresh Shopify access token:', err);
+			setTimeout(scheduleTokenRefresh, 60_000); // Retry in 1 min
+		}
+	}, delay);
+	if (timer.unref) timer.unref();
+}
+
+if (useClientCredentials) {
+	await fetchAccessToken();
+	scheduleTokenRefresh();
+}
+
+const SHOPIFY_API_URL = `https://${SHOPIFY_DOMAIN}/admin/api/${API_VERSION}/`;
 
 class ShopifyMCPServer {
 	constructor() {
