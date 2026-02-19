@@ -156,7 +156,6 @@ class ShopifyMCPServer {
 							product_id: {
 								type: 'string',
 								description: 'The product ID',
-								required: true,
 							},
 						},
 						required: ['product_id'],
@@ -168,7 +167,7 @@ class ShopifyMCPServer {
 					inputSchema: {
 						type: 'object',
 						properties: {
-							query: { type: 'string', description: 'Search query', required: true },
+							query: { type: 'string', description: 'Search query' },
 							limit: {
 								type: 'number',
 								description: 'Number of results (default: 10)',
@@ -187,7 +186,6 @@ class ShopifyMCPServer {
 							product_id: {
 								type: 'string',
 								description: 'The product ID',
-								required: true,
 							},
 						},
 						required: ['product_id'],
@@ -271,7 +269,6 @@ class ShopifyMCPServer {
 							order_id: {
 								type: 'string',
 								description: 'The order ID',
-								required: true,
 							},
 						},
 						required: ['order_id'],
@@ -286,7 +283,6 @@ class ShopifyMCPServer {
 							order_id: {
 								type: 'string',
 								description: 'The order ID',
-								required: true,
 							},
 						},
 						required: ['order_id'],
@@ -325,7 +321,6 @@ class ShopifyMCPServer {
 							customer_id: {
 								type: 'string',
 								description: 'The customer ID',
-								required: true,
 							},
 						},
 						required: ['customer_id'],
@@ -337,7 +332,7 @@ class ShopifyMCPServer {
 					inputSchema: {
 						type: 'object',
 						properties: {
-							query: { type: 'string', description: 'Search query', required: true },
+							query: { type: 'string', description: 'Search query' },
 							limit: {
 								type: 'number',
 								description: 'Number of results (default: 10)',
@@ -356,7 +351,6 @@ class ShopifyMCPServer {
 							customer_id: {
 								type: 'string',
 								description: 'The customer ID',
-								required: true,
 							},
 							limit: {
 								type: 'number',
@@ -439,7 +433,6 @@ class ShopifyMCPServer {
 							collection_id: {
 								type: 'string',
 								description: 'The collection ID',
-								required: true,
 							},
 							limit: {
 								type: 'number',
@@ -475,7 +468,6 @@ class ShopifyMCPServer {
 							discount_id: {
 								type: 'string',
 								description: 'The discount ID',
-								required: true,
 							},
 						},
 						required: ['discount_id'],
@@ -492,7 +484,6 @@ class ShopifyMCPServer {
 							product_id: {
 								type: 'string',
 								description: 'The product ID',
-								required: true,
 							},
 						},
 						required: ['product_id'],
