@@ -1,6 +1,8 @@
 # MCP Shopify
 
-A comprehensive Model Context Protocol (MCP) server for Shopify Admin API integration. This server provides 22 tools to interact with your Shopify store, enabling AI assistants like Claude to manage products, orders, customers, inventory, analytics, and more through natural language.
+A comprehensive Model Context Protocol (MCP) server for Shopify Admin API integration. This server provides a set of tools to interact with your Shopify store, enabling AI assistants like Claude to manage products, orders, customers, inventory, analytics, and more through natural language.
+
+*Note: Documentation below includes both currently implemented and planned enhancements. Read-only tools are fully implemented; write/update operations are in development.*
 
 ## Features
 
