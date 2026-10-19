@@ -1,6 +1,6 @@
 # MCP Shopify - Complete Tools Reference
 
-This document provides detailed information about all 22 tools available in MCP Shopify.
+This document provides detailed information about the tools available in MCP Shopify. Please note that this reference includes both currently implemented tools and planned enhancements. Read-only operations are fully functional, while write/update operations are in development.
 
 ## Product Management Tools
 
